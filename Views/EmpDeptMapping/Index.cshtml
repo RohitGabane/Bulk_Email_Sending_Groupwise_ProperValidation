@@ -1,0 +1,37 @@
+﻿
+ @model IEnumerable<Bulk_Email_Sending_Groupwise.Models.EmpDeptMapping>
+
+<div class="container mt-5">
+    <h1>DetailsEmp Index</h1>
+
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Emp_ID)</th>
+                <th>@Html.DisplayNameFor(model => model.Employee.FirstName)</th>
+
+                <th>@Html.DisplayNameFor(model => model.Employee.Email_ID)</th>
+                <th>@Html.DisplayNameFor(model => model.Dept_Id)</th>
+                <th>@Html.DisplayNameFor(model => model.Department)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Employee.Emp_ID)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Employee.FirstName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Employee.Email_ID)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Department.Dept_Id)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Department.Dept_Name)</td>
+                    <td>
+                        <a asp-controller="Department" asp-action="Index" class="btn btn-info">Back To Department</a>
+@*                         <a asp-action="Delete" asp-route-id="@item.Emp_ID" class="btn btn-danger">Delete</a>
+ *@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
