@@ -1,0 +1,112 @@
+﻿@* 
+
+
+@model IEnumerable<Bulk_Email_Sending_Groupwise.Models.EmpMenuMapping>
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="container">
+    <h1 class="mt-4 mb-4">Employee Menu Mappings</h1>
+    <p>
+        <a class="btn btn-primary" asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Employee ID
+                </th>
+                <th>
+                    First Name
+                </th>
+                <th>
+                    Last Name
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Menu ID
+                </th>
+                <th>
+                    Menu Name
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employee.Emp_ID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employee.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employee.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employee.Email_ID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Menus.MenuID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Menus.MenuName)
+                    </td>
+                    <td>
+                        <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div> *@
+@model IEnumerable<Bulk_Email_Sending_Groupwise.Models.EmpMenuMapping>
+@{
+    ViewData["Title"] = "Employee Menu Mappings";
+}
+
+<div class="container mt-5">
+    <h1>Employee Menu Mappings</h1>
+
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Create New</a>
+    </p>
+
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Employee ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Menu ID</th>
+                <th>Menu Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Employee.Emp_ID)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Employee.FirstName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Employee.LastName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Employee.Email_ID)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Menus.MenuID)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Menus.MenuName)</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-info">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

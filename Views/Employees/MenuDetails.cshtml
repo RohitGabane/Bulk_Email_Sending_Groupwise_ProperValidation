@@ -1,0 +1,49 @@
+﻿@model Bulk_Email_Sending_Groupwise.Models.Employee
+<div class="container">
+    <h1 class="mt-4 mb-4">Employee Details</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table">
+                <tr>
+                    <th>Employee ID</th>
+                    <td>@Model.Emp_ID</td>
+                </tr>
+                <tr>
+                    <th>First Name</th>
+                    <td>@Model.FirstName</td>
+                </tr>
+                <tr>
+                    <th>Last Name</th>
+                    <td>@Model.LastName</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>@Model.Email_ID</td>
+                </tr>
+                <tr>
+                    <th>Birth Date</th>
+                    <td>@Model.BirthDate.ToShortDateString()</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-6">
+            @if (Model.EmpMenuMapping != null && Model.EmpMenuMapping.Any())
+            {
+                <h2>Associated Menus</h2>
+                <ul>
+                    @foreach (var empMenuMapping in Model.EmpMenuMapping)
+                    {
+                        <li>@empMenuMapping.Menus.MenuName</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>No associated menus for this employee.</p>
+            }
+        </div>
+    </div>
+    <div class="mt-4">
+        <a class="btn btn-primary" asp-action="Index">Back to List</a>
+    </div>
+</div>

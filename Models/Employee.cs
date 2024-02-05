@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bulk_Email_Sending_Groupwise.Models
 {
@@ -25,7 +26,11 @@ namespace Bulk_Email_Sending_Groupwise.Models
         [Required(ErrorMessage = "Email is required")]
         [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{3,}$", ErrorMessage = "Invalid Email Address")]
         public string? Email_ID { get; set; }
-
+        [NotMapped]
+        [Display(Name = "Selected Menu")]
+        public int SelectedMenuId { get; set; }
+        //public ICollection<DetailsEmp> DetailsEmp { get; set; } = new List<DetailsEmp>();
+        public ICollection<EmpMenuMapping> EmpMenuMapping { get; set; } = new List<EmpMenuMapping>();
         public ICollection<EmpDeptMapping> EmpDeptMapping { get; set; } = new List<EmpDeptMapping>();
     }
 }

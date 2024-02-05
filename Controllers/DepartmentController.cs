@@ -191,7 +191,7 @@ namespace Bulk_Email_Sending_Groupwise.Controllers
                 //}
                 if (IsBirthdayToday(employee.BirthDate))
                 {
-                    string subject = $"Happy Birthday, {employee.FirstName}! Greetings from {department.Dept_Name} Department";
+                    string subject = $"Good Evening, {employee.FirstName}! Greetings from {department.Dept_Name} Department";
                     //string body = $"Dear {employee.FirstName},\nWishing you a fantastic birthday! 🎉🎂";
                     string body =  $@"
             <!DOCTYPE html>
@@ -228,10 +228,14 @@ namespace Bulk_Email_Sending_Groupwise.Controllers
             </head>
             <body>
                 <div class='container'>
-                    <h1>🎉 Happy Birthday, {employee.FirstName}! 🎂</h1>
+                    <h1> Good Evening, {employee.FirstName}! </h1>
                     <p>Dear {employee.FirstName},</p>
-                    <p>Wishing you a fantastic birthday! May your day be filled with joy, laughter, and memorable moments.</p>
-                    <p>Cheers to another year of accomplishments and happiness! 🥳</p>
+                    <p>I hope this message finds you well. Unfortunately, I bring news that our cricket game scheduled for tomorrow has to be canceled due to unforeseen circumstances. Regrettably, some of our key players are unavailable, and we believe it's in the best interest of the team to reschedule the match.
+
+We understand this may cause inconvenience, and we sincerely apologize for any disruptions to your plans. We value your commitment and enthusiasm for the game, and we assure you that we are working to address the issues and organize another match soon.
+
+Thank you for your understanding, and we look forward to your continued support</p>
+                    //<p>So sorry for inconvinent </p>
                     <p>Best regards,<br>Your {department.Dept_Name} Department</p>
                 </div>
             </body>

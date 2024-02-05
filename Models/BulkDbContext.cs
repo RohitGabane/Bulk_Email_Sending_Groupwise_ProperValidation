@@ -23,12 +23,22 @@ namespace Bulk_Email_Sending_Groupwise.Models
                 .HasOne(d => d.Department)
                 .WithMany(dept => dept.EmpDeptMapping)
                 .HasForeignKey(d => d.Dept_Id);
+            modelBuilder.Entity<EmpMenuMapping>()
+      .HasOne(em => em.Employee)
+      .WithMany(e => e.EmpMenuMapping)
+      .HasForeignKey(em => em.EmpId);
+            modelBuilder.Entity<EmpMenuMapping>()
+                .HasOne(em => em.Menus)
+                .WithMany(m => m.EmpMenuMapping)
+                .HasForeignKey(em => em.MenuID);
 
             base.OnModelCreating(modelBuilder);
         }
         public DbSet<Employee> Employee { get; set; }
         public DbSet<Department> Department { get; set; }
         public DbSet<EmpDeptMapping> EmpDeptMapping { get; set; }
+        public DbSet<Menus> Menus { get; set; }
+        public DbSet<EmpMenuMapping> EmpMenuMapping { get; set; }
 
        
     }

@@ -153,5 +153,110 @@ namespace Bulk_Email_Sending_Groupwise.Controllers
         {
             return _context.Employee.Any(e => e.Emp_ID == id);
         }
+
+        //// GET: Employees/AddMenu/5
+        //public async Task<IActionResult> AddMenu(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    // Retrieve the employee from the database
+        //    var employee = await _context.Employee
+        //        .Include(e => e.EmpMenuMapping) 
+        //        .ThenInclude(em => em.Menus)   
+        //        .FirstOrDefaultAsync(e => e.Emp_ID == id);
+        //    if (employee == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    // Retrieve the list of menus from the database
+        //    var menus = await _context.Menus.ToListAsync();
+        //    // Pass the employee and menu list to the view
+        //    ViewBag.EmployeeId = id;
+        //    ViewBag.Menus = menus;
+        //    return View();
+        //}
+
+
+        // GET: Employees/AddMenu/5
+        public async Task<IActionResult> AddMenu(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            // Retrieve the employee from the database with associated menus
+            var employee = await _context.Employee
+                .Include(e => e.EmpMenuMapping)
+                .ThenInclude(em => em.Menus)
+                .FirstOrDefaultAsync(e => e.Emp_ID == id);
+
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            // Retrieve the list of menus from the database
+            var allMenus = await _context.Menus.ToListAsync();
+
+            // Get the menu IDs that are already associated with the employee
+            var associatedMenuIds = employee.EmpMenuMapping.Select(em => em.MenuID).ToList();
+
+            // Filter and give those are not associate
+            var menus = allMenus.Where(m => !associatedMenuIds.Contains(m.MenuID)).ToList();
+
+            // Pass the employee and menu list to the view
+            ViewBag.EmployeeId = id;
+            ViewBag.Menus = menus;
+
+            return View();
+        }
+
+
+        // POST: Employees/AddMenu/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddMenu(int id, int selectedMenuId)
+        {
+            var employee = await _context.Employee
+                .Include(e => e.EmpMenuMapping) // Include the EmpMenuMapping relationship
+                .FirstOrDefaultAsync(e => e.Emp_ID == id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+            if (selectedMenuId != 0)
+            {
+                // Check if the menu is not already associated with the employee
+                if (!employee.EmpMenuMapping.Any(em => em.MenuID == selectedMenuId))
+                {
+                    // Add the menu to the employee's EmpMenuMapping
+                    employee.EmpMenuMapping.Add(new EmpMenuMapping { MenuID = selectedMenuId });
+                    await _context.SaveChangesAsync();
+                }
+            }
+            // Redirect to the "Index" action with the employee's ID
+            return RedirectToAction("Index", new { id = id });
+        }
+        // GET: Employees/Details/5
+        public async Task<IActionResult> MenuDetails(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            // Retrieve the employee from the database with associated EmpMenuMapping and Menus
+            var employee = await _context.Employee
+                .Include(e => e.EmpMenuMapping)
+                .ThenInclude(em => em.Menus)
+                .FirstOrDefaultAsync(e => e.Emp_ID == id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+            return View(employee);
+        }
     }
 }

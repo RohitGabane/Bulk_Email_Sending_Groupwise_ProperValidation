@@ -12,70 +12,6 @@
         <a asp-action="Create" class="btn btn-primary">Create New</a>
     </p>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Dept_Id)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Dept_Name)
-                </th>
-                <th>
-                    Employees Count
-                </th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Dept_Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Dept_Name)
-                    </td>
-                    <td>
-                        @{
-                            int employeeCount = item.DetailsEmp.Count();
-                        }
-                        @employeeCount
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Dept_Id" class="btn btn-secondary">Edit</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Dept_Id" class="btn btn-danger">Delete</a> |
-                        <a asp-controller="DetailsEmp" asp-action="ViewEmployees" asp-route-Dept_Id="@item.Dept_Id" class="btn btn-primary">View Employees</a> |
-                        <a asp-controller="DetailsEmp" asp-action="ShowAllEmployees" asp-route-Dept_Id="@item.Dept_Id" class="btn btn-success">Add Employees</a>|
-                        <a asp-action="SendBirthdayEmails" asp-route-id="@item.Dept_Id" class="btn btn-success" onclick="onsuccessClick()">Send Emails</a>
-
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
-<script>
-    function onsuccessClick()
-    {
-        alert("Emails Send Successfully!!!!!")
-    }
-</script>
- *@
- @model IEnumerable<Bulk_Email_Sending_Groupwise.Models.Department>
-
-@{
-    ViewData["Title"] = "Index";
-}
-
-<div class="container mt-5">
-    <h1>Department Index</h1>
-
-    <p>
-        <a asp-action="Create" class="btn btn-primary">Create New</a>
-    </p>
-
     <table class="table table-bordered">
         <thead class="thead-dark">
             <tr>
@@ -101,6 +37,61 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Dept_Name)
                     </td>
+                    <td>
+                        @{
+                            int employeeCount = item.EmpDeptMapping.Count();
+                        }
+                        @employeeCount
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Dept_Id" class="btn btn-secondary">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Dept_Id" class="btn btn-danger">Delete</a> |
+                        <a asp-controller="EmpDeptMapping" asp-action="ViewEmployees" asp-route-Dept_Id="@item.Dept_Id" class="btn btn-primary">View Employees</a> |
+                        <a asp-controller="EmpDeptMapping" asp-action="ShowAllEmployees" asp-route-Dept_Id="@item.Dept_Id" class="btn btn-warning">Add Employees</a>|
+                        <a asp-action="SendBirthdayEmails" asp-route-id="@item.Dept_Id" class="btn btn-success" onclick="onsuccessClick(@employeeCount)">Send Emails</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    function onsuccessClick(employeeCount) {
+        if (employeeCount > 0) {
+            alert("Emails sent successfully!");
+        } else {
+            alert("No employees in this department.");
+        }
+    }
+</script> *@
+@model IEnumerable<Bulk_Email_Sending_Groupwise.Models.Department>
+
+@{
+    ViewData["Title"] = "Department Index";
+}
+
+<div class="container mt-5">
+    <h1>Department Index</h1>
+
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Create New</a>
+    </p>
+
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Dept_Id)</th>
+                <th>@Html.DisplayNameFor(model => model.Dept_Name)</th>
+                <th>Employees Count</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Dept_Id)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Dept_Name)</td>
                     <td>
                         @{
                             int employeeCount = item.EmpDeptMapping.Count();
