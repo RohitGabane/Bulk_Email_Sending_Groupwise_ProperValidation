@@ -17,8 +17,8 @@ namespace Bulk_Email_Sending_Groupwise.Controllers
 
         private const string SmtpServer = "smtp.gmail.com";
         private const int SmtpPort = 587;
-        private const string SmtpUsername = "rohitgabane1234@gmail.com";
-        private const string SmtpPassword = "fzir fvrv rjnf xtzq";
+        private const string SmtpUsername = "enter your emailid";
+        private const string SmtpPassword = "enter your password";
         public DepartmentController(BulkDbContext context)
         {
             _context = context;
